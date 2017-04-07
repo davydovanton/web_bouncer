@@ -1,8 +1,28 @@
 # WebBouncer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/web_bouncer`. To experiment with that code, run `bin/console` for an interactive prompt.
+> **Bouncer** - the big fat guy standing in front of the doorway of stripclubs and keeps everyone out if they are not on the "list". ([urbandictionary.com](http://www.urbandictionary.com/define.php?term=bouncer))
 
-TODO: Delete this and the text above, and describe your gem
+In this project, I try to build simple and module auth lib for **any** rack projects.
+
+**Important:** Now it's just a prototype.
+
+## Goals
+In Ruby, we have many different auth libs, but each project has one of the shortcomings:
+
+* hard for customization
+* works only with rails
+* doesn't have documentation or examples of usage
+
+That's why I want to try to build simple and lightweight "auth framework" with the following principles:
+
+### Don't reinvent a wheel
+Use only existed solution like OAuth, warden, rodauth or jwt.
+
+### simple and lightweight
+If you want to use default logic just use it. If you want to write custom logic you will have an easy way for this.
+
+### Modularity
+Ruby has many awesome web frameworks like Rails, hanami, Sinatra, roda, grape, etc. I want to build the solution for all of this. Also if you need to use only oauth or jwt - use only this.
 
 ## Installation
 
@@ -23,17 +43,6 @@ Or install it yourself as:
 ## Usage
 
 TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/web_bouncer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
 
 ## License
 
