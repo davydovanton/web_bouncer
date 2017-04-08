@@ -20,7 +20,7 @@ module WebBouncer
       r.is 'auth/logout' do
         Matcher.call(OauthContainer['oauth.logout'].call) do |m|
           m.success do |value|
-            env[:account] = value
+            session[:account] = value
           end
 
           m.failure do |v|
@@ -35,7 +35,7 @@ module WebBouncer
 
         Matcher.call(action.call) do |m|
           m.success do |value|
-            env[:account] = value
+            session[:account] = value
           end
 
           m.failure do |v|
