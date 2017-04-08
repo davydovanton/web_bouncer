@@ -43,16 +43,43 @@ Or install it yourself as:
 ## Usage
 ### Base
 
-Add middleware to your `config.ru`:
+Add `WebBouncer` and `Rack::Session` middlewares to your `config.ru`:
 ```ruby
 # config.ru
 
 require 'web_bouncer'
 require "web_bouncer/middleware"
 
+use Rack::Session::Cookie, secret: ENV['SESSIONS_SECRET']
 use WebBouncer::Middleware
 run Hanami.app
 ```
+
+#### Configurable
+You can set specific options for you auth middleware. We use configuration without a global state, that's why you need to create config hash and pass it to middleware:
+
+```ruby
+# config.ru
+
+require 'web_bouncer'
+require "web_bouncer/middleware"
+
+config = {
+  model: :account,
+  login_redirect: '/admin',
+  logout_redirect: '/'
+}
+
+use Rack::Session::Cookie, secret: ENV['WEB_SESSIONS_SECRET']
+use WebBouncer::Middleware, config
+run Hanami.app
+```
+
+Now we support following options:
+
+* `model` - auth model name. Default: `:account`
+* `login_redirect` - path for redirect after login. Default: `'/'`
+* `logout_redirect` - path for redirect after logout. Default: `'/'`
 
 ### OAuth
 
