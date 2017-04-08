@@ -62,10 +62,10 @@ If you want to define custom oauth actions, you need to use dry-containers. For 
 # lib/auth/oauth/github_callback.rb
 class GithubCallback
   def call
-    if false
-      Right('oauth.github_callback')
+    if condition
+      Right(account)
     else
-      Left('oauth.github_callback')
+      Left(error_message)
     end
   end
 end
@@ -75,10 +75,12 @@ class WebBouncer::OauthContainer
   register 'oauth.github_callback', GithubCallback.new
 
   register 'oauth.facebook_callback' do
-    Right('oauth.facebook_callback')
+    Left(:not_implement)
   end
 end
 ```
+
+Now, when you call `/auth/github` you'll create github account and set it to `env` variable. If you call `/auth/facebook` you'll get a error and that's all. If you call different provider you'll call base oauth action.
 
 ## License
 
