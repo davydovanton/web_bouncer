@@ -6,15 +6,16 @@ module WebBouncer
 
     route do |r|
       r.is 'auth/failure' do
-        p OauthContainer['oauth.failure']
+        OauthContainer['oauth.failure']
       end
 
       r.is 'auth/logout' do
-        p OauthContainer['oauth.logout']
+        OauthContainer['oauth.logout']
       end
 
-      r.on 'auth/:provider/callback' do
-        p OauthContainer['oauth.provider_callback']
+      r.on 'auth/:provider/callback' do |provider|
+        action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
+        action.call
       end
     end
   end

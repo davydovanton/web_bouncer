@@ -15,8 +15,8 @@ module WebBouncer
       'oauth.logout'
     end
 
-    register 'oauth.provider_callback' do
-      'oauth.provider_callback'
+    register 'oauth.base_callback' do
+      'oauth.base_callback'
     end
   end
 end
