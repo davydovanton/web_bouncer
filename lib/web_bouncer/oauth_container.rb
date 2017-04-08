@@ -1,6 +1,9 @@
+require 'dry-monads'
+
 module WebBouncer
   class OauthContainer
     extend Dry::Container::Mixin
+    extend Dry::Monads::Either::Mixin
 
     configure do |config|
       config.registry = ->(container, key, item, options) { container[key] = item }
@@ -8,15 +11,15 @@ module WebBouncer
     end
 
     register 'oauth.failure' do
-      'oauth.failure'
+      Right('oauth.failure')
     end
 
     register 'oauth.logout' do
-      'oauth.logout'
+      Right('oauth.logout')
     end
 
     register 'oauth.base_callback' do
-      'oauth.base_callback'
+      Right('oauth.base_callback')
     end
   end
 end

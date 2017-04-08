@@ -6,16 +6,41 @@ module WebBouncer
 
     route do |r|
       r.is 'auth/failure' do
-        OauthContainer['oauth.failure']
+        Matcher.call(OauthContainer['oauth.failure'].call) do |m|
+          m.success do |v|
+            "Successed #{v}"
+          end
+
+          m.failure do |v|
+            "Failed #{v}"
+          end
+        end
       end
 
       r.is 'auth/logout' do
-        OauthContainer['oauth.logout']
+        Matcher.call(OauthContainer['oauth.logout'].call) do |m|
+          m.success do |v|
+            "Successed #{v}"
+          end
+
+          m.failure do |v|
+            "Failed #{v}"
+          end
+        end
       end
 
       r.on 'auth/:provider/callback' do |provider|
         action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
-        action.call
+
+        Matcher.call(action.call) do |m|
+          m.success do |v|
+            "Successed #{v}"
+          end
+
+          m.failure do |v|
+            "Failed #{v}"
+          end
+        end
       end
     end
   end
