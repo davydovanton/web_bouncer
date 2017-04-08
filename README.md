@@ -56,15 +56,26 @@ run Hanami.app
 
 ### OAuth
 
-If you want custom existed oauth actions use dry-c logic:
+If you want to define custom oauth actions, you need to use dry-containers. For this, you redefine container with an object which has `#call` methods (proc, class, etc.). After, you need to return right (success) or left (failure) monad. For example:
+
 ```ruby
-class WebBouncer::OauthContainer
-  register 'oauth.github_callback' do
-    'oauth.github_callback'
+# lib/auth/oauth/github_callback.rb
+class GithubCallback
+  def call
+    if false
+      Right('oauth.github_callback')
+    else
+      Left('oauth.github_callback')
+    end
   end
+end
+
+# lib/auth/oauth_container.rb
+class WebBouncer::OauthContainer
+  register 'oauth.github_callback', GithubCallback.new
 
   register 'oauth.facebook_callback' do
-    'oauth.facebook_callback'
+    Right('oauth.facebook_callback')
   end
 end
 ```
