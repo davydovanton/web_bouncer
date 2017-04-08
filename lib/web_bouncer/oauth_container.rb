@@ -11,15 +11,15 @@ module WebBouncer
     end
 
     register 'oauth.failure' do
-      Right('oauth.failure')
+      Right(nil)
     end
 
     register 'oauth.logout' do
-      Right('oauth.logout')
+      Right(nil)
     end
 
     register 'oauth.base_callback' do
-      Right('oauth.base_callback')
+      Right('account object')
     end
   end
 end

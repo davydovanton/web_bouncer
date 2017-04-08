@@ -19,28 +19,30 @@ module WebBouncer
 
       r.is 'auth/logout' do
         Matcher.call(OauthContainer['oauth.logout'].call) do |m|
-          m.success do |v|
-            "Successed #{v}"
+          m.success do |value|
+            env[:account] = value
           end
 
           m.failure do |v|
-            "Failed #{v}"
           end
         end
+
+        r.redirect "/"
       end
 
       r.on 'auth/:provider/callback' do |provider|
         action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
 
         Matcher.call(action.call) do |m|
-          m.success do |v|
-            "Successed #{v}"
+          m.success do |value|
+            env[:account] = value
           end
 
           m.failure do |v|
-            "Failed #{v}"
           end
         end
+
+        r.redirect "/"
       end
     end
   end
