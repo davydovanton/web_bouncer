@@ -1,6 +1,6 @@
 # WebBouncer
 
-> **Bouncer** - the big fat guy standing in front of the doorway of stripclubs and keeps everyone out if they are not on the "list". ([urbandictionary.com](http://www.urbandictionary.com/define.php?term=bouncer))
+> **A bouncer** is the first face you see when entering a bar, pub, or night club, and how they treat you often sets the mood for the night. they make sure everyone who enters the establishment is of legal drinking age, not overly intoxicated, dressed according the the bars dresscode, not carying any weapons or drugs ([urbandictionary.com](http://www.urbandictionary.com/define.php?term=bouncer)).
 
 In this project, I try to build simple and module auth lib for **any** rack projects.
 
