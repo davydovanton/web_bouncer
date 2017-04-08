@@ -41,8 +41,33 @@ Or install it yourself as:
     $ gem install web_bouncer
 
 ## Usage
+### Base
 
-TODO: Write usage instructions here
+Add middleware to your `config.ru`:
+```ruby
+# config.ru
+
+require 'web_bouncer'
+require "web_bouncer/middleware"
+
+use WebBouncer::Middleware
+run Hanami.app
+```
+
+### OAuth
+
+If you want custom existed oauth actions use dry-c logic:
+```ruby
+class WebBouncer::OauthContainer
+  register 'oauth.github_callback' do
+    'oauth.github_callback'
+  end
+
+  register 'oauth.facebook_callback' do
+    'oauth.facebook_callback'
+  end
+end
+```
 
 ## License
 
