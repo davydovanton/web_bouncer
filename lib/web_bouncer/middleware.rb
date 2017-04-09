@@ -2,7 +2,7 @@ require 'roda'
 
 module WebBouncer
   class Middleware < Roda
-    plugin :middleware do |middleware, config, &block|
+    plugin :middleware do |middleware, config = {}, &block|
       config[:model] ||= :account
       config[:login_redirect] ||= '/'
       config[:logout_redirect] ||= '/'
