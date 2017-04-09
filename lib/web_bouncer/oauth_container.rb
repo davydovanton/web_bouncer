@@ -19,7 +19,7 @@ module WebBouncer
       Right(nil)
     end
 
-    register 'oauth.base_callback' do
+    register 'oauth.base_callback' do |data|
       Right('account object')
     end
   end

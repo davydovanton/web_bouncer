@@ -41,8 +41,9 @@ module WebBouncer
 
       r.on 'auth/:provider/callback' do |provider|
         action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
+        data = request.env['omniauth.auth']
 
-        Matcher.call(action.call) do |m|
+        Matcher.call(action.call(data)) do |m|
           m.success do |value|
             session[config[:model]] = value
           end
