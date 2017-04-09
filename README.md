@@ -83,16 +83,28 @@ Now we support following options:
 
 ### OAuth
 
+First of all setup your OAuth app:
+
+```ruby
+# config.ru
+
+use OmniAuth::Builder do
+  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'], provider_ignores_state: true
+end
+```
+
 If you want to define custom oauth actions, you need to use dry-containers. For this, you redefine container with an object which has `#call` methods (proc, class, etc.). After, you need to return right (success) or left (failure) monad. For example:
 
 ```ruby
 # lib/auth/oauth/github_callback.rb
 class GithubCallback
-  def call
-    if condition
-      Right(account)
+  def call(oauth_response)
+    login = oauth_response['extra']['raw_info']['login']
+
+    if login
+      Right(login)
     else
-      Left(error_message)
+      Left(:not_found)
     end
   end
 end
@@ -101,7 +113,7 @@ end
 class WebBouncer::OauthContainer
   register 'oauth.github_callback', GithubCallback.new
 
-  register 'oauth.facebook_callback' do
+  register 'oauth.facebook_callback' do |oauth_response|
     Left(:not_implement)
   end
 end
