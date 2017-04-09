@@ -1,4 +1,5 @@
 require 'dry-monads'
+require 'dry-container'
 
 module WebBouncer
   class OauthContainer
