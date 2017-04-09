@@ -3,6 +3,7 @@ Bundler.setup
 
 require 'web_bouncer'
 require 'rack/test'
+require 'dry-monads'
 
 ENV['RACK_ENV'] = 'test'
 
@@ -14,6 +15,8 @@ class TestingApp < Roda
     login_redirect: '/',
     logout_redirect: '/'
   }
+
+  route {}
 end
 
 module RSpecMixin

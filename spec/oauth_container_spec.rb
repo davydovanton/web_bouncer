@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'dry-monads'
 
 RSpec.describe WebBouncer::OauthContainer do
   include Dry::Monads::Either::Mixin
