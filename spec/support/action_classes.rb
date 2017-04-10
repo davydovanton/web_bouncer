@@ -8,6 +8,10 @@ class Action
   def initialize(session = {})
     @session = session
   end
+
+  def redirect_to(path)
+    "redirected to #{path}"
+  end
 end
 
 class Account

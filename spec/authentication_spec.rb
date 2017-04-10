@@ -30,4 +30,16 @@ RSpec.describe WebBouncer::Authentication do
       it { expect(action.authenticated?).to eq true }
     end
   end
+
+  describe '#authenticate!' do
+    context 'when account does not exist' do
+      let(:action) { Action.new(account: nil) }
+
+      it { expect(action.authenticate!).to eq 'redirected to /' }
+    end
+
+    context 'when account exist' do
+      it { expect(action.authenticate!).to eq nil }
+    end
+  end
 end
