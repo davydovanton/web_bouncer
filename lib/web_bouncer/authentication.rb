@@ -6,8 +6,6 @@ module WebBouncer
     #   end
     # end
 
-  private
-
     def authenticate!
       redirect_to('/') unless authenticated?
     end

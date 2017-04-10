@@ -89,7 +89,7 @@ Add this helper to `application.rb` config file:
 
 ```ruby
 # apps/app_name/application.rb
-require 'web_bouncer/authentication.rb'
+require 'web_bouncer/authentication'
 
 # ...
 controller.prepare do
