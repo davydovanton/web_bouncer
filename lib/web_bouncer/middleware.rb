@@ -6,6 +6,7 @@ module WebBouncer
       model: :account,
       login_redirect: '/',
       logout_redirect: '/',
+      failure_redirect: '/',
       allow_oauth: true
     }
 
@@ -30,6 +31,8 @@ module WebBouncer
               "Failed #{v}"
             end
           end
+
+          r.redirect config[:failure_redirect]
         end
 
         r.is 'auth/logout' do
@@ -38,8 +41,7 @@ module WebBouncer
               session[config[:model]] = value
             end
 
-            m.failure do |v|
-            end
+            m.failure {}
           end
 
           r.redirect config[:logout_redirect]
@@ -54,14 +56,13 @@ module WebBouncer
               session[config[:model]] = value
             end
 
-            m.failure do |v|
-            end
+            m.failure {}
           end
 
           r.redirect config[:login_redirect]
         end
       end
-
     end
+
   end
 end

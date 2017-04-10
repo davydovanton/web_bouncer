@@ -80,6 +80,8 @@ Now we support following options:
 * `model` - auth model name. Default: `:account`
 * `login_redirect` - path for redirect after login. Default: `'/'`
 * `logout_redirect` - path for redirect after logout. Default: `'/'`
+* `failure_redirect` - path for redirect after failure Default: `'/'`
+* `allow_oauth` - option for allow OAuth authentication. Default: true
 
 #### Controller Helpers
 All helpers like `#authenticate!` or `#authenticated?` you can find in `WebBouncer::Authentication` module.
