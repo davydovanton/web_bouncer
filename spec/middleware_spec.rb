@@ -15,8 +15,12 @@ RSpec.describe WebBouncer::Middleware do
     before { get '/auth/failure' }
 
     context 'when all is ok' do
-      it { expect(last_response).to be_ok }
-      it { expect(last_response.body).to eq 'Successed ' }
+      it { expect(last_response).to be_redirect }
+
+      it 'redirects to root path' do
+        follow_redirect!
+        expect(last_request.url).to eq  "http://example.org/"
+      end
     end
   end
 

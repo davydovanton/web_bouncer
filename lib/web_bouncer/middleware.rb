@@ -23,13 +23,8 @@ module WebBouncer
       if config[:allow_oauth]
         r.is 'auth/failure' do
           Matcher.call(OauthContainer['oauth.failure'].call) do |m|
-            m.success do |v|
-              "Successed #{v}"
-            end
-
-            m.failure do |v|
-              "Failed #{v}"
-            end
+            m.success {}
+            m.failure {}
           end
 
           r.redirect config[:failure_redirect]
