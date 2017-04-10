@@ -81,15 +81,17 @@ Now we support following options:
 * `login_redirect` - path for redirect after login. Default: `'/'`
 * `logout_redirect` - path for redirect after logout. Default: `'/'`
 
-#### Helpers
-All helpers like `authenticate!` you can find in `WebBouncer::Authentication` module.
+#### Controller Helpers
+All helpers like `#authenticate!` or `#authenticated?` you can find in `WebBouncer::Authentication` module.
 
 ##### How to use it with Hanami
 Add this helper to `application.rb` config file:
 
 ```ruby
 # apps/app_name/application.rb
+require 'web_bouncer/authentication.rb'
 
+# ...
 controller.prepare do
   include WebBouncer::Authentication
 end
