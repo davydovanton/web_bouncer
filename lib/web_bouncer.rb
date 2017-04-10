@@ -15,4 +15,9 @@ module WebBouncer
     register 'middleware', WebBouncer::Middleware
     register 'authentication', WebBouncer::Authentication
   end
+
+  def [](container)
+    Container[container]
+  end
+  module_function :[]
 end

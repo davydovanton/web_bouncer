@@ -51,7 +51,7 @@ require 'web_bouncer'
 require "web_bouncer/middleware"
 
 use Rack::Session::Cookie, secret: ENV['SESSIONS_SECRET']
-use WebBouncer::Middleware
+use WebBouncer['middleware']
 run Hanami.app
 ```
 
@@ -71,7 +71,7 @@ config = {
 }
 
 use Rack::Session::Cookie, secret: ENV['WEB_SESSIONS_SECRET']
-use WebBouncer::Middleware, config
+use WebBouncer['middleware'], config
 run Hanami.app
 ```
 
@@ -84,7 +84,7 @@ Now we support following options:
 * `allow_oauth` - option for allow OAuth authentication. Default: true
 
 #### Controller Helpers
-All helpers like `#authenticate!` or `#authenticated?` you can find in `WebBouncer::Authentication` module.
+All helpers like `#authenticate!` or `#authenticated?` you can find in `authentication` container.
 
 ##### How to use it with Hanami
 Add this helper to `application.rb` config file:
@@ -95,7 +95,7 @@ require 'web_bouncer/authentication'
 
 # ...
 controller.prepare do
-  include WebBouncer::Authentication
+  include WebBouncer['authentication']
 end
 ```
 
