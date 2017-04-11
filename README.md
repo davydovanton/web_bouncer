@@ -116,10 +116,16 @@ If you want to define custom oauth actions, you need to use dry-containers. For 
 ```ruby
 # lib/auth/oauth/github_callback.rb
 class GithubCallback
-  def call(oauth_response, config)
+  attr_reader :settings
+
+  def initialize(settings)
+    @settings = settings
+  end
+
+  def call(oauth_response)
     login = oauth_response['extra']['raw_info']['login']
 
-    if config[:repository].find(login)
+    if settings[:repository].find(login)
       Right(login)
     else
       Left(:not_found)
@@ -131,8 +137,14 @@ end
 class WebBouncer::OauthContainer
   register 'oauth.github_callback', GithubCallback
 
-  register 'oauth.facebook_callback' do |oauth_response|
-    Left(:not_implement)
+  register 'oauth.facebook_callback' do |settings, oauth_response|
+    email = oauth_response['email']
+
+    if settings[:model].find(login)
+      Right(login)
+    else
+      Left(:not_found)
+    end
   end
 end
 ```
