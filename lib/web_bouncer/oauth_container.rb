@@ -7,18 +7,23 @@ module WebBouncer
     extend Dry::Monads::Either::Mixin
 
     configure do |config|
-      config.registry = ->(container, key, item, options) do
-        container[key] = item.is_a?(Class) ? item.new : item
-      end
+      config.registry = ->(container, key, item, options) { container[key] = item }
 
-      config.resolver = ->(container, key) { container[key] }
+      config.resolver = ->(container, key) do
+        case container[key]
+        when Class
+          ->(settings, data) { container[key].new(settings).call(data) }
+        else
+          container[key]
+        end
+      end
     end
 
-    register 'oauth.failure' do |config|
+    register 'oauth.failure' do |config, _data|
       Right(nil)
     end
 
-    register 'oauth.logout' do |config|
+    register 'oauth.logout' do |config, _data|
       Right(nil)
     end
 
