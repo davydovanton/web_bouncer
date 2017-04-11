@@ -12,7 +12,16 @@ RSpec.describe WebBouncer::OauthContainer do
       end
     end
 
+    class VkCallback
+      include Dry::Monads::Either::Mixin
+      def call(payload, config)
+        Right('vk account')
+      end
+    end
+
     class WebBouncer::OauthContainer
+      register 'oauth.vk_callback', VkCallback
+
       register 'oauth.facebook_callback' do
         Right('facebook account')
       end
@@ -20,6 +29,7 @@ RSpec.describe WebBouncer::OauthContainer do
 
     it { expect(TestContainer['oauth.base_callback'].call).to eq Right('changed') }
     it { expect(container['oauth.facebook_callback'].call).to eq Right('facebook account') }
+    it { expect(container['oauth.vk_callback'].call({}, {})).to eq Right('vk account') }
   end
 
   describe 'oauth.failure container' do

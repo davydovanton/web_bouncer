@@ -22,7 +22,7 @@ module WebBouncer
 
       if config[:allow_oauth]
         r.is 'auth/failure' do
-          Matcher.call(OauthContainer['oauth.failure'].call) do |m|
+          Matcher.call(OauthContainer['oauth.failure'].call(config)) do |m|
             m.success {}
             m.failure {}
           end
@@ -31,7 +31,7 @@ module WebBouncer
         end
 
         r.is 'auth/logout' do
-          Matcher.call(OauthContainer['oauth.logout'].call) do |m|
+          Matcher.call(OauthContainer['oauth.logout'].call(config)) do |m|
             m.success do |value|
               session[config[:model]] = value
             end
@@ -46,7 +46,7 @@ module WebBouncer
           action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
           data = request.env['omniauth.auth']
 
-          Matcher.call(action.call(data)) do |m|
+          Matcher.call(action.call(data, config)) do |m|
             m.success do |value|
               session[config[:model]] = value
             end
