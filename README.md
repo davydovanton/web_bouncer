@@ -48,10 +48,10 @@ Add `WebBouncer` and `Rack::Session` middlewares to your `config.ru`:
 # config.ru
 
 require 'web_bouncer'
-require "web_bouncer/middleware"
+require "web_bouncer/oauth_middleware"
 
 use Rack::Session::Cookie, secret: ENV['SESSIONS_SECRET']
-use WebBouncer['middleware']
+use WebBouncer['middleware.oauth']
 run Hanami.app
 ```
 
@@ -62,7 +62,7 @@ You can set specific options for you auth middleware. We use configuration witho
 # config.ru
 
 require 'web_bouncer'
-require "web_bouncer/middleware"
+require "web_bouncer/oauth_middleware"
 
 config = {
   model: :account,
@@ -71,7 +71,7 @@ config = {
 }
 
 use Rack::Session::Cookie, secret: ENV['WEB_SESSIONS_SECRET']
-use WebBouncer['middleware'], config
+use WebBouncer['middleware.oauth'], config
 run Hanami.app
 ```
 
@@ -115,13 +115,7 @@ If you want to define custom oauth actions, you need to use dry-containers. For 
 
 ```ruby
 # lib/auth/oauth/github_callback.rb
-class GithubCallback
-  attr_reader :settings
-
-  def initialize(settings)
-    @settings = settings
-  end
-
+class GithubCallback < WebBouncer::OauthCallback
   def call(oauth_response)
     login = oauth_response['extra']['raw_info']['login']
 
