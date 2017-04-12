@@ -1,3 +1,4 @@
+require "web_bouncer/oauth_middleware"
 require "web_bouncer/oauth_container"
 require "web_bouncer/authentication"
 require "web_bouncer/middleware"
@@ -12,7 +13,7 @@ module WebBouncer
   class Container
     extend ::Dry::Container::Mixin
 
-    register 'middleware', WebBouncer::Middleware
+    register 'middleware.oauth', WebBouncer::OauthMiddleware
     register 'authentication', WebBouncer::Authentication
   end
 

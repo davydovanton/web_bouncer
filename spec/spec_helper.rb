@@ -10,7 +10,7 @@ ENV['RACK_ENV'] = 'test'
 class TestingApp < Roda
   use Rack::Session::Cookie, secret: '123'
 
-  use WebBouncer::Middleware, {
+  use WebBouncer::OauthMiddleware, {
     model: :account,
     login_redirect: '/',
     logout_redirect: '/'
