@@ -81,7 +81,6 @@ Now we support following options:
 * `login_redirect` - path for redirect after login. Default: `'/'`
 * `logout_redirect` - path for redirect after logout. Default: `'/'`
 * `failure_redirect` - path for redirect after failure Default: `'/'`
-* `allow_oauth` - option for allow OAuth authentication. Default: true
 
 #### Controller Helpers
 All helpers like `#authenticate!` or `#authenticated?` you can find in `authentication` container.

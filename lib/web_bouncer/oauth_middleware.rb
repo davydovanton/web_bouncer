@@ -5,42 +5,40 @@ module WebBouncer
     route do |r|
       config = opts[:config]
 
-      if config[:allow_oauth]
-        r.is 'auth/failure' do
-          Matcher.call(OauthContainer['oauth.failure'].call(config, {})) do |m|
-            m.success {}
-            m.failure {}
-          end
-
-          r.redirect config[:failure_redirect]
+      r.is 'auth/failure' do
+        Matcher.call(OauthContainer['oauth.failure'].call(config, {})) do |m|
+          m.success {}
+          m.failure {}
         end
 
-        r.is 'auth/logout' do
-          Matcher.call(OauthContainer['oauth.logout'].call(config, {})) do |m|
-            m.success do |value|
-              session[config[:model]] = value
-            end
+        r.redirect config[:failure_redirect]
+      end
 
-            m.failure {}
+      r.is 'auth/logout' do
+        Matcher.call(OauthContainer['oauth.logout'].call(config, {})) do |m|
+          m.success do |value|
+            session[config[:model]] = value
           end
 
-          r.redirect config[:logout_redirect]
+          m.failure {}
         end
 
-        r.on 'auth/:provider/callback' do |provider|
-          action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
-          data = request.env['omniauth.auth']
+        r.redirect config[:logout_redirect]
+      end
 
-          Matcher.call(action.call(config, data)) do |m|
-            m.success do |value|
-              session[config[:model]] = value
-            end
+      r.on 'auth/:provider/callback' do |provider|
+        action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
+        data = request.env['omniauth.auth']
 
-            m.failure {}
+        Matcher.call(action.call(config, data)) do |m|
+          m.success do |value|
+            session[config[:model]] = value
           end
 
-          r.redirect config[:login_redirect]
+          m.failure {}
         end
+
+        r.redirect config[:login_redirect]
       end
     end
   end
