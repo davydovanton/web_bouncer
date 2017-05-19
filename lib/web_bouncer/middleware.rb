@@ -7,6 +7,7 @@ module WebBouncer
       login_redirect: '/',
       logout_redirect: '/',
       failure_redirect: '/',
+      login_failed_redirect: '/',
       allow_oauth: true
     }
 

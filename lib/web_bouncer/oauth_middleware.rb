@@ -35,7 +35,9 @@ module WebBouncer
             session[config[:model]] = value
           end
 
-          m.failure {}
+          m.failure {
+            r.redirect config[:login_failed_redirect]
+          }
         end
 
         r.redirect config[:login_redirect]
