@@ -26,7 +26,7 @@ module WebBouncer
         r.redirect config[:logout_redirect]
       end
 
-      r.on 'auth/:provider/callback' do |provider|
+      r.on 'auth', String, 'callback' do |provider|
         action = OauthContainer["oauth.#{provider}_callback"] || OauthContainer["oauth.base_callback"]
         data = request.env['omniauth.auth']
 
