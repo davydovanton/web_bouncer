@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe WebBouncer::OauthCallback do
-  include Dry::Monads::Either::Mixin
+  include Dry::Monads::Result::Mixin
 
   let(:callback) { WebBouncer::OauthCallback.new(settings) }
   let(:settings) { {} }
@@ -11,6 +11,6 @@ RSpec.describe WebBouncer::OauthCallback do
   end
 
   describe '#call' do
-    it { expect(callback.call({})).to eq Right(true) }
+    it { expect(callback.call({})).to eq Success(true) }
   end
 end

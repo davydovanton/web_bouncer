@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 RSpec.describe WebBouncer do
-  it { expect(WebBouncer::Matcher).to eq Dry::Matcher::EitherMatcher }
+  it { expect(WebBouncer::Matcher).to eq Dry::Matcher::ResultMatcher }
 end
