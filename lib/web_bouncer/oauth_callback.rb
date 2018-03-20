@@ -1,6 +1,6 @@
 module WebBouncer
   class OauthCallback
-    include Dry::Monads::Either::Mixin
+    include Dry::Monads::Result::Mixin
 
     attr_reader :settings
 
@@ -9,7 +9,7 @@ module WebBouncer
     end
 
     def call(config)
-      Right(true)
+      Success(true)
     end
   end
 end

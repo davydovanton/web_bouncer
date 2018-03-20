@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe WebBouncer::OauthMiddleware do
   class WebBouncer::OauthContainer
     register 'oauth.facebook_callback' do
-      Right('facebook account')
+      Success('facebook account')
     end
   end
 

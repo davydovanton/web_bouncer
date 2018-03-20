@@ -5,11 +5,11 @@ require "web_bouncer/oauth_callback"
 require "web_bouncer/middleware"
 require "web_bouncer/version"
 
-require "dry/matcher/either_matcher"
+require "dry/matcher/result_matcher"
 require 'dry-container'
 
 module WebBouncer
-  Matcher = Dry::Matcher::EitherMatcher
+  Matcher = Dry::Matcher::ResultMatcher
 
   class Container
     extend ::Dry::Container::Mixin

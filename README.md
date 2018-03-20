@@ -110,7 +110,7 @@ use OmniAuth::Builder do
 end
 ```
 
-If you want to define custom oauth actions, you need to use dry-containers. For this, you redefine container with an object which has `#call` methods (proc, class, etc.). After, you need to return right (success) or left (failure) monad. For example:
+If you want to define custom oauth actions, you need to use dry-containers. For this, you redefine container with an object which has `#call` methods (proc, class, etc.). After, you need to return success or failure monad. For example:
 
 ```ruby
 # lib/auth/oauth/github_callback.rb
@@ -119,9 +119,9 @@ class GithubCallback < WebBouncer::OauthCallback
     login = oauth_response['extra']['raw_info']['login']
 
     if settings[:repository].find(login)
-      Right(login)
+      Success(login)
     else
-      Left(:not_found)
+      Failure(:not_found)
     end
   end
 end
@@ -134,9 +134,9 @@ class WebBouncer::OauthContainer
     email = oauth_response['email']
 
     if settings[:model].find(login)
-      Right(login)
+      Success(login)
     else
-      Left(:not_found)
+      Failure(:not_found)
     end
   end
 end
