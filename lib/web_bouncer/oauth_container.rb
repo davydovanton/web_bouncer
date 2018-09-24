@@ -1,4 +1,5 @@
 require 'dry-monads'
+require 'dry/monads/result'
 require 'dry-container'
 
 module WebBouncer
